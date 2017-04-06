@@ -16,24 +16,32 @@ app.use(express.static(__dirname + '/public'));
 
 http.listen(port);
 io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
+    console.log('a user connected');
+    socket.on('room', function(room) {
+        console.log('room joined: '+room)
+        socket.join(room);
+    });
 
-  socket.on('start',function(){
-      console.log("start")
-      io.emit('start');
-  })
-  socket.on('stop',function(){
-            console.log("stop")
-      io.emit('stop');
-  })
-  socket.on('change',function(val){
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+    });
 
-    var num =val.val
-      io.emit('change', num);
-  })
+    socket.on('start',function(val){
+
+        var lobby = val.lobby;
+        io.sockets.in(lobby).emit('start');
+    })
+    socket.on('stop',function(val){
+
+        var lobby = val.lobby;
+        io.sockets.in(lobby).emit('stop');
+    })
+    socket.on('change',function(val){
+
+        var lobby = val.lobby;
+        var num =val.val
+        io.sockets.in(lobby).emit('change', num);
+    })
 });
 
 

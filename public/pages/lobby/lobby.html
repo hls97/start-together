@@ -1,10 +1,50 @@
-<div class="container">
-    <h1>{{seconds}} seconds</h1>
 
-    <button class="btn btn-danger" ng-click="emitStop()">Stop</button>
+        <section class="content bgcolor-4" style="text-align:center">
+            <h2 style="font-size:35px;text-align:center;color:#FFFFFF">Lobby: {{num}}</h2>
+            <span class="input input--akira input-filled">
+                <input class="input__field input__field--akira input-filled" ng-model="seconds" ng-change="emitChange()" type="num" id="input-24" />
+                <label class="input__label input__label--akira" for="input-24">
+                    <span class="input__label-content input__label-content--akira">Countdown</span>
+                </label>
+            </span>
+            <br>
+            <br>
+            <br>
+            <button class="btn btn-1 btn-1a" ng-click="emitStart()">Start</button>
+            <button class="btn btn-1 btn-1a" ng-click="emitStop()">Stop</button>
+        </section>
+        <script type="text/javascript-lazy">
+            (function() {
+                // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+                if (!String.prototype.trim) {
+                    (function() {
+                        // Make sure we trim BOM and NBSP
+                        var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+                        String.prototype.trim = function() {
+                            return this.replace(rtrim, '');
+                        };
+                    })();
+                }
 
+                [].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+                    // in case the input is already filled..
+                    if( inputEl.value.trim() !== '' ) {
+                        classie.add( inputEl.parentNode, 'input--filled' );
+                    }
 
-    <button class="btn btn-success"  ng-click="emitStart()">Start</button>
+                    // events:
+                    inputEl.addEventListener( 'focus', onInputFocus );
+                    inputEl.addEventListener( 'blur', onInputBlur );
+                } );
 
-    <input ng-model="seconds" ng-change="emitChange()" type="text"></input>
-</div>
+                function onInputFocus( ev ) {
+                    classie.add( ev.target.parentNode, 'input--filled' );
+                }
+
+                function onInputBlur( ev ) {
+                    if( ev.target.value.trim() === '' ) {
+                        classie.remove( ev.target.parentNode, 'input--filled' );
+                    }
+                }
+            })();
+        </script>

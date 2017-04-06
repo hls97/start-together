@@ -1,10 +1,13 @@
 angular
 .module('start', ['btford.socket-io',
-                'ui.router'
+                'ui.router',
+                'ngLoadScript'
 ])
 .factory('mySocket', function (socketFactory) {
      var mySocket = socketFactory();
-  return mySocket;
+
+     return mySocket;
+
 })
 .config(function($stateProvider, $urlRouterProvider) {
 

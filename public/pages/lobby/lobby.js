@@ -1,7 +1,22 @@
 angular.module('start')
-.controller('lobbyCtrl', function($scope, $rootScope, $interval, mySocket){
+.controller('lobbyCtrl', function($scope, $rootScope, $interval, $stateParams, $state, mySocket){
     $rootScope.activePage = 'lobby';
-    $scope.seconds = 30;
+
+    $scope.num = $stateParams.num;
+    $scope.key = $stateParams.key;
+
+    if(!$scope.num || !$scope.key){
+        $state.go('home');
+    }
+
+    var lobby = 'r-' + $scope.num + '-k-' + $scope.key
+
+    mySocket = io.connect();
+
+     mySocket.emit('room', lobby);
+
+
+    $scope.seconds = null;
     $scope.stopTime;
     $scope.toggleTime = 1;
     $scope.totalTime = 60;
@@ -15,20 +30,19 @@ angular.module('start')
     });
     mySocket.on('change', function (val) {
         $scope.seconds = val
+        $scope.$apply()
     });
 
     $scope.emitStart = function(){
-        mySocket.emit('start',{});
+        mySocket.emit('start',{'lobby': lobby});
         $scope.startTimer()
     }
     $scope.emitStop = function(){
-        console.log("stop")
-        mySocket.emit('stop',{});
+        mySocket.emit('stop',{'lobby': lobby});
         $scope.stopTimer()
     }
     $scope.emitChange = function(){
-        console.log("CHANGING")
-        mySocket.emit('change',{val:$scope.seconds});
+        mySocket.emit('change',{'val':$scope.seconds, 'lobby': lobby});
     }
     $scope.startTimer = function(){
         if($scope.stopTime !== undefined){
