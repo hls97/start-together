@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 
-http.listen(8080, "127.0.0.1");
+http.listen(process.env.PORT || 8080, "127.0.0.1");
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function(){
@@ -32,7 +32,6 @@ io.on('connection', function(socket){
   socket.on('change',function(val){
 
     var num =val.val
-        console.log(num)
       io.emit('change', num);
   })
 });
