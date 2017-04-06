@@ -21,7 +21,8 @@
     "humanize-duration": "^3.10.0",
     "moment": "momentjs#^2.18.1",
     "angular-socket-io": "^0.7.0",
-    "socket.io-client": "^1.7.2"
+    "socket.io-client": "^1.7.2",
+    "angular-ui-router": "^0.4.2"
   },
   "resolutions": {
     "moment": "~2.9.0"
