@@ -1,7 +1,7 @@
 {
   "name": "start",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "authors": [
     "Harold Shen <hlshen@ucsd.edu>"
   ],
