@@ -13,15 +13,23 @@
     <script src="/bower_components/angular-socket-io/socket.js"></script>
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="pages/home/home.css" rel="stylesheet">
+
+    <link href="css/demo.css" rel="stylesheet">
+    <link href="css/normalize.css" rel="stylesheet">
+    <link href="css/default.css" rel="stylesheet">
+    <link href="css/component.css" rel="stylesheet">
+
 
      <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
      <script>
 
          var socket = io();
      </script>
 
-</head><!--/head-->
+</head>
 
 <body>
     <ui-view></ui-view>
@@ -30,24 +38,55 @@
 
     <footer style="padding-top:5%" class="footer">
       <div class="container">
-        <span class="text-muted">Created by: Harold Shen</span>
+        <span class="text-muted">Created by: Harold Shen & Minho Bae</span>
       </div>
     </footer>
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 
     <script type="text/javascript" src="app.js"></script>
 
     <script type="text/javascript" src="pages/lobby/lobby.js"></script>
+    <script type="text/javascript" src="pages/home/home.js"></script>
     <script type="text/javascript" src="bower_components/humanize-duration/humanize-duration.js"></script>
     <script type="text/javascript" src="bower_components/angular-timer/dist/angular-timer.js"></script>
     <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="bower_components/moment/min/locales.min.js"></script>
 
 </body>
+<script>
+			(function() {
+				// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+				if (!String.prototype.trim) {
+					(function() {
+						// Make sure we trim BOM and NBSP
+						var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+						String.prototype.trim = function() {
+							return this.replace(rtrim, '');
+						};
+					})();
+				}
 
+				[].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+					// in case the input is already filled..
+					if( inputEl.value.trim() !== '' ) {
+						classie.add( inputEl.parentNode, 'input--filled' );
+					}
+
+					// events:
+					inputEl.addEventListener( 'focus', onInputFocus );
+					inputEl.addEventListener( 'blur', onInputBlur );
+				} );
+
+				function onInputFocus( ev ) {
+					classie.add( ev.target.parentNode, 'input--filled' );
+				}
+
+				function onInputBlur( ev ) {
+					if( ev.target.value.trim() === '' ) {
+						classie.remove( ev.target.parentNode, 'input--filled' );
+					}
+				}
+			})();
+		</script>
 </html>

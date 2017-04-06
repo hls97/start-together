@@ -1,5 +1,6 @@
 angular.module('start')
-.controller('lobbyCtrl', function($scope, $interval, mySocket){
+.controller('lobbyCtrl', function($scope, $rootScope, $interval, mySocket){
+    $rootScope.activePage = 'lobby';
     $scope.seconds = 30;
     $scope.stopTime;
     $scope.toggleTime = 1;

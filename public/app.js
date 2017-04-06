@@ -10,19 +10,19 @@ angular
 
     $urlRouterProvider.otherwise('/');
     $stateProvider
-    // .state('login',{
-    //     url: '/',
-    //     templateUrl: 'views/login.html',
-    //     controller: 'LoginCtrl',
-    //     params:{
-    //         from: null,
-    //         who: null
-    //     }
-    // })
+    .state('home',{
+        url: '/',
+        templateUrl: 'pages/home/home.html',
+        controller: 'homeCtrl'
+    })
     .state('lobby', {
         url:'/lobby',
         templateUrl: 'pages/lobby/lobby.html',
-        controller: 'lobbyCtrl'
+        controller: 'lobbyCtrl',
+        params:{
+            num: null,
+            key: null
+        }
     });
 
 
